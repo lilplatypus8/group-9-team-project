@@ -13,7 +13,7 @@ API_URL = "https://studio--studio-9059517623-ca846.us-central1.hosted.app/api/up
 # Your secret API key. This must match the key in your .env file.
 API_KEY = "0bf4e9af08aafea1e866de863e27e20eb25dfd6bbcd243125403547be3a35f59" 
 
-IMAGES_DIR = Path(r"C:\Users\laure\test-pictures")
+IMAGES_DIR = Path(r"C:\Users\L&L\Desktop\transmission_images\decrypted_images")
 
 def get_session_with_retries():
     session = requests.Session()
