@@ -122,13 +122,16 @@ while True:
 
     # Decrypt
     for enc_path in encrypted_files:
-        out_path = decrypted_dir / enc_path.with_suffix("").name
+        suffix = enc_path.suffix.lower()
 
-         # Force correct extensions
-        if out_path.name == "matched.manifest":
-            out_path = out_path.with_suffix(".txt")
-        elif out_path.suffix == "":
-            out_path = out_path.with_suffix(".jpg")
+        if suffix == ".manifest":
+            out_path = decrypted_dir / (enc_path.stem + ".txt")
+        elif suffix == ".md5":
+            out_path = decrypted_dir / enc_path.name
+        elif suffix == ".jpg":
+            out_path = decrypted_dir / enc_path.name
+        else:
+            continue
 
         print(f"Decrypting: {enc_path.name}")
 
@@ -142,10 +145,17 @@ while True:
                 "-in", str(enc_path),
                 "-out", str(out_path),
             ],
-        check=True
-)
+            check=True
+        )
 
     print("Decryption process finished.")
     print(f"Output directory: {decrypted_dir}")
+
+    SCRIPT_DIR = Path(__file__).parent
+    RADIO_SCRIPT = SCRIPT_DIR / "transmission.py"
+    WEBSITE_SCRIPT = SCRIPT_DIR / "website_upload.py"
+
+    subprocess.run(["python", str(RADIO_SCRIPT)])
+    subprocess.run(["python", str(WEBSITE_SCRIPT)])
 
     break
