@@ -70,22 +70,22 @@ def has_red_circle(img_bgr, debug=False, return_circle=False):
         dp=1.2,
         minDist=15,
         param1=100,
-        param2=20,
+        param2=50,
         minRadius=3,
-        maxRadius=140,
+        maxRadius=30,
     )
 
-    if circles is None:
+    """if circles is None:
         circles = cv2.HoughCircles(
             mask_blur,
             cv2.HOUGH_GRADIENT,
             dp=1.2,
             minDist=15,
-            param1=100,
-            param2=20,
+            param1=94,
+            param2=69,
             minRadius=3,
             maxRadius=20,
-        )
+        ) """
 
     best = None
     h, w = mask_raw.shape
@@ -357,7 +357,9 @@ def main():
     # print(f"MD5(enc): {md5_value} (saved to {md5_path})")
 
     start_qrs_server_and_open_chromium()
+    subprocess.run(["python3", "receiver.py"])
+    subprocess.run(["python3", "compare_md5.py"])
+    
     
 if __name__ == "__main__":
     main()
-
